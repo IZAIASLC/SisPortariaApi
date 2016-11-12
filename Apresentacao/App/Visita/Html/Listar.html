@@ -1,0 +1,71 @@
+﻿<div ng-include="'App/Templates/header-template.html'"></div>
+
+<div class="ibox-content">
+
+    <div class="row">
+        <div class="input-field col s12">
+            <label>Critério de busca: </label>
+            <input type="text" id="morador.Nome" ng-model="criterioBusca" ng-required />
+        </div>
+    </div>
+
+    <p class="right-align">
+
+        <a href="#/visita-morador/cadastrar" class="btn btn-success">&nbsp;&nbsp;Incluir</a>
+
+    </p>
+
+
+    <div class="row" ng-show="visitasMorador.length>0">
+        <div class="col s12">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>Nome Visitante
+                    </th>
+                    <th>Identidade Visitante
+                    </th>
+                    <th>Nome Morador
+                    </th>
+
+                    <th>Endereço Morador
+                    </th>
+                    <th>Entrada
+                    </th>
+                    <th>Saída
+                    </th>
+                   <th class="acao90 center-align">Ação</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="visitaMorador in visitasMorador | filter: criterioBusca | orderBy:'Nome' " style="cursor: pointer" ng-click="redirecionar(morador)">
+                        <td>
+                            <span ng-bind="visitaMorador.Visitante.Nome"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="visitaMorador.Visitante.Identidade"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="visitaMorador.Morador.Nome"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="visitaMorador.Morador.Endereco"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="visitaMorador.Entrada | filterDate: 'dd/MM/yyyy H:mm:ss' "></span>
+                        </td>
+                        <td>
+                            <span ng-bind="visitaMorador.Saida | filterDate: 'dd/MM/yyyy H:mm:ss' "></span>
+                        </td>
+
+
+
+                        <td class="center-align">
+                            <a href="#/visita-morador/cadastrar/{{visitaMorador.Visitante.Identificador}}" tooltipped data-position="top"  data-tooltip="Cadastrar visita"> <i class="mdi mdi-pencil  mdi-18px"></i></a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

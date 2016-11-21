@@ -1,0 +1,118 @@
+﻿<!doctype html>
+<html lang="pt-BR" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Bem vindo a Modern Web Store!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modern Web Store - Setor Administrativo</title>
+    <link rel="icon" type="image/icon" href="assets/imgs/favicon.ico">
+    <!-- Page styles -->
+    <link rel="stylesheet" href="asserts/content/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="asserts/content/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="asserts/content/materialize/css/material-icons.css">
+
+
+    <link rel="stylesheet" href="asserts/content/ng-img-crop.css" />
+    <link rel="stylesheet" href="asserts/content/site.css" />
+    <link rel="stylesheet" href="asserts/content/simple-autocomplete.css" />
+
+
+
+</head>
+<body>
+
+
+
+    <div ng-include="'app/pages/layout/side-bar.html'"></div>
+
+    <div ng-include="'app/pages/layout/top-bar.html'"></div>
+    <div class="row">
+        <main id="content-wrapper">
+                    <div class="col s12 m12 l12">
+                       
+
+                        <div ng-view></div>
+                    </div>
+                </main>
+    </div>
+    <div class="row">
+        <footer id="footer" class="page-footer footer-thin ">
+            <div class="footer-copyright">
+                <div class="container">
+                    <h6 class="center-align">Sistema de Portaria</h6>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!--<top-bar></top-bar>-->
+    <!--  <header>
+        <div ng-include="'app/pages/layout/top-bar.html'"></div>
+    </header>
+
+        <div ng-include="'app/pages/layout/side-bar.html'"></div>
+
+    
+            <div class="row">
+
+                <main>
+                    <div class="col s12 m12 l12">
+                        <!--<side-bar></side-bar>-->
+
+    <!-- <div ng-view></div>
+                    </div>
+                </main>
+            </div>-->
+
+    <!--<footer class="page-footer">
+        
+        <div class="footer-copyright">
+            <div class="container">
+                © 2014 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+        </div>
+    </footer>-->
+
+
+    <script src="scripts/jquery/jquery-2.1.4.min.js"></script>
+    <script src="scripts/materialize/materialize.min.js"></script>
+
+    <script src="scripts/sweetalert/sweetalert.min.js"></script>
+
+    <script src="scripts/angular/angular.min.js"></script>
+    <script src="scripts/angular/angular-aria.min.js"></script>
+    <script src="scripts/angular/angular-messages.min.js"></script>
+    <script src="scripts/angular/angular-route.min.js"></script>
+    <script src="scripts/angular/angular-loader.min.js"></script>
+    <script src="scripts/angular/angular-resource.min.js"></script>
+    <script src="scripts/angular/angular-animate.min.js"></script>
+    <script src="scripts/angular/angular-local-storage.min.js"></script>
+    <script src="scripts/angular/angular-locale_pt-br.js"></script>
+    <script src="scripts/angular/angular-materialize.js"></script>
+    <script src="scripts/angular/angular-file-upload.js"></script>
+
+
+
+
+
+    <script src="scripts/webcam.js"></script>
+    <script src="scripts/ng-img-crop.js"></script>
+
+    <script src="app/modules/app.js"></script>
+    <script src="app/routes/routes.js"></script>
+    <!--<script src="app/modules/config.js"></script>-->
+
+    <script src="app/directives/top-bar-directives.js"></script>
+    <script src="app/directives/side-bar-directives.js"></script>
+
+    <script src="scripts/json-date.js"></script>
+    <script src="app/factories/data-service.js"></script>
+    <script src="app/controllers/index/index-controller.js"></script>
+    <script src="app/controllers/morador/pesquisar-morador-controller.js"></script>
+    <script src="app/controllers/morador/cadastrar-morador-controller.js"></script>
+
+
+
+</body>
+</html>

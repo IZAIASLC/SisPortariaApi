@@ -30,9 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Incra.Estrutura.Modelo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ba1bdb508a30a62d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Estrutura\Web\bin\Release\Incra.Estrutura.Modelo.dll</HintPath>
+    <Reference Include="Estrutura.Modelo">
+      <HintPath>..\..\Estrutura-configurado-sql\Web\bin\Release\Estrutura.Modelo.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,19 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dependente.cs" />
+    <Compile Include="Entities\Dependente.cs" />
     <Compile Include="Dto\EstadoDto.cs" />
     <Compile Include="Dto\DependenteDto.cs" />
     <Compile Include="Dto\MoradorDto.cs" />
     <Compile Include="Dto\VisitaMoradorDto.cs" />
     <Compile Include="Dto\VisitanteDto.cs" />
-    <Compile Include="Estado.cs" />
-    <Compile Include="Morador.cs" />
-    <Compile Include="Pessoa.cs" />
-    <Compile Include="VisitaMorador.cs" />
-    <Compile Include="Visitante.cs" />
+    <Compile Include="Entities\Estado.cs" />
+    <Compile Include="Entities\Morador.cs" />
+    <Compile Include="Entities\Pessoa.cs" />
+    <Compile Include="Entities\VisitaMorador.cs" />
+    <Compile Include="Entities\Visitante.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scopes\MoradorScopes.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SisPortaria.Modelo;
-using Incra.Estrutura.AcessoDados;
+using Estrutura.AcessoDados;
 namespace SisPortaria.AcessoDados
 {
    public interface IVisitanteAcessoDados:IRepositorio<Visitante>

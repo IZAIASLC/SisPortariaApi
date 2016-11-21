@@ -1,0 +1,146 @@
+﻿<!--<div ng-include="'app/pages/layout/header.html'"></div>-->
+
+<div class="ibox-content">
+    <div ng-include="'app/pages/layout/image.html'"></div>
+
+
+
+    <form name="visitanteForm" data-ng-submit="salvar()" novalidate>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="image"></label>
+                <img src="data:image/jpeg;base64,{{morador.Foto}}" />
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="input-field col s12 s8 l8">
+                <input type="text" ng-model="morador.Nome" length="10" />
+                <label>Nome</label>
+            </div>
+
+            <div class="input-field col s12 s4 l4">
+                <label>Data Nascimento</label>
+                <input type="text" input-date select-years="50" format="dd/mm/yyyy" class="datepicker" on-set="onSet('#data_nascimento')" id="data_nascimento" ng-model="morador.DataNascimento" />
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="input-field col s12">
+                <input type="text" ng-model="morador.Endereco" length="10" />
+                <label>Endereço</label>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m3 l3">
+                <label class="control-label">Identidade</label>
+                <input type="text" ng-model="morador.Identidade" />
+            </div>
+
+            <div class="input-field col s12 m3 l3 ">
+
+                <select name="uf_identidade" id="uf_identidade" material-select watch
+                        ng-model="morador.Estado.Identificador">
+                    <option ng-selected="morador.Estado.Identificador == estado.Identificador"
+                            ng-repeat="estado in listaEstados" value="{{estado.Identificador}}">
+                        {{estado.Sigla}}
+                    </option>
+                </select>
+                <label for="uf_identidade">UF Identidade</label>
+            </div>
+
+            <div class="col s12 m6 l6">
+                <div class="col s12" style="margin-top: 20px !important;">
+                    <label style="color: #4E4D4C;" for="noEmail">Sexo</label>
+                </div>
+                <div class="col s4">
+                    <input class="with-gap" type="radio" id="masculino" ng-model="morador.Sexo" value="0" />
+                    <label for="masculino">M</label>
+                </div>
+                <div class="col s4">
+                    <input class="with-gap" type="radio" id="feminino" ng-model="morador.Sexo" value="1" />
+                    <label for="feminino">F</label>
+                </div>
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <div class="row" ng-show="morador.Dependentes.length>0">
+
+            <div class="ibox-title">
+                Informações do(s) Dependente(s)
+            </div>
+
+            <div class="col s12">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <th>Nome</th>
+                    <th class="acao90 center-align">Acão</th>
+
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="dependente in morador.Dependentes">
+                            <td>{{dependente.Nome}}</td>
+                            <td class="center-align">
+
+                                <a ng-click="editar(dependente)" style="cursor: pointer" tooltipped data-position="top" data-tooltip="Editar"> <i class="material-icons md-18px">edit</i></a>
+                                <a ng-click="remover(dependente)" style="cursor: pointer" tooltipped data-position="top" data-tooltip="Excluir"><i class="material-icons md-18px">delete</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m12 l12 right-align">
+                <a class="btn" modal data-target="modalDependentes"><i tooltipped data-position="top" data-tooltip="Novo dependente" class="material-icons md-18px">add</i></a>
+            </div>
+        </div>
+        <br />
+
+        <div class="modal" id="modalDependentes">
+
+            <div class="modal-content">
+
+                <h5>Cadastro de Dependentes</h5>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label class="control-label">Nome do dependente</label>
+                        <input type="text" ng-model="dependente.Nome" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m12 l12 right-align">
+                        <input type="button" id="Adicionar" ng-click="adicionar(dependente)" name="Dependentes" value="Adicionar"
+                               class="btn btn-primary" />
+                        <a class="btn modal-action modal-close">Fechar</a>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+        <div class="row">
+            <div class="col s12 m12 l12 right-align">
+                <button type="button" class="btn btn-primary" ng-click="salvar()" title="Salvar">Salvar</button>
+             
+                <a class="btn btn-warning" href="#/morador/">Voltar</a>
+            </div>
+        </div>
+
+    </form>
+</div>

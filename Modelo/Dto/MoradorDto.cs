@@ -1,4 +1,4 @@
-﻿using Incra.Estrutura.Modelo;
+﻿using Estrutura.Modelo;
 using Modelo.Dto;
 using System;
 using System.Collections.Generic;

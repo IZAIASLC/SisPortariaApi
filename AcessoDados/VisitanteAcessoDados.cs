@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Incra.Estrutura.AcessoDados;
+using Estrutura.AcessoDados;
 using SisPortaria.Modelo;
 using NHibernate;
 namespace SisPortaria.AcessoDados

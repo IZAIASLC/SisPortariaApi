@@ -1,0 +1,138 @@
+﻿<div class="navbar-fixed">
+    <nav id="header" class="ng-scope">
+        <div class="nav-wrapper">
+            <ul class="left">
+                <li>
+                    <a class="button-collapse"  href="javascript:void(0);" data-activates="sidebar" >
+                        <i class="material-icons">menu</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="brand-logo " href="/" ui-sref="home" ui-sref-opts="{inherit: false, reload: true}">
+                        <i class="material-icons " ng-bind="APP.icon">filter_hdr</i>
+                        <span class="ng-binding" ng-bind="APP.name">Cordilheira</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="links-others-system">
+                <li>
+                    <a title="Correio" href="https://mail.itamaraty.gov.br" target="_blank">xx </a>
+                </li>
+                <li>
+                    <a title="Intratec" href="https://intratec.itamaraty.gov.br" target="_blank">x </a>
+                </li>
+                <li>
+                    <a title="Diplopédia" href="https://diplopedia.itamaraty.gov.br" target="_blank">x </a>
+                </li>
+            </ul>
+            <ul class="menu-header right">
+                <li>
+                    <a class="dropdown-button btn-floating btn-flat waves-light ng-isolate-scope" title="Menu sistemas" href="javacript:void(0);" dropdown="" data-activates="dropdown-system" constrain-width="false">
+                        <i class="material-icons">view_list</i>
+                    </a>
+                    <ul id="dropdown-system" class="dropdown-content">
+                        <li>
+                            <div id="tootip-system" class="row">
+                                <div class="col s12">
+                                    <div class="col s6">
+                                        <a title="SERE - Sistema de Visualização Eletrônica de Documentos" href="http://sistemas.mre.gov.br/intradocs" target="_blank">
+                                            <i class="material-icons">picture_in_picture</i>
+                                            <h6>INTRADOCS - Sere / Rede Mundial</h6>
+                                        </a>
+                                    </div>
+                                    <div class="col s6">
+                                        <a id="intradocs-posto" title="POSTO - Sistema de Visualização Eletrônica de Documentos" href="https://sistemas.mre.gov.br/intradocs" target="_blank">
+                                            <i class="material-icons">tab</i>
+                                            <h6>INTRADOCS - Posto</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <div class="col s6">
+                                        <a title="Sistema de Elaboração de Protocolos de Documentos" href="http://sistemas.mre.gov.br/seprod" target="_blank">
+                                            <i class="material-icons">description</i>
+                                            <h6>SEPROD</h6>
+                                        </a>
+                                    </div>
+                                    <div class="col s6">
+                                        <a title="Sistema de Atos Internacionais" href="https://sis.itamaraty.gov.br/sait" target="_blank">
+                                            <i class="material-icons">filter_hdr</i>
+                                            <h6>Concórdia</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <div class="col s6">
+                                        <a title="Sistema de Gestão Financeira" href="http://sistemas.itamaraty.gov.br/GestaoFinanceira" target="_blank">
+                                            <i class="material-icons">local_atm</i>
+                                            <h6>SIGEF</h6>
+                                        </a>
+                                    </div>
+                                    <div class="col s6">
+                                        <a title="Sistema de Patrimônio e Almoxarifado" href="https://sis.itamaraty.gov.br/SISPAT" target="_blank">
+                                            <i class="material-icons">assignment</i>
+                                            <h6>SISPAT</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <div class="divider"></div>
+                                    <a id="a-outros-sistemas" title="Outros sistemas" target="_blank" href="https://acesso.itamaraty.gov.br/Unificador/Pages/Controller/ListSistemas.aspx">Outros sistemas ...</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="btn-floating btn-flat waves-light" title="Pessoal servidor" href="https://intratec.itamaraty.gov.br" target="_blank">
+                        <i class="material-icons">perm_contact_calendar</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-button btn-floating btn-flat waves-light ng-isolate-scope" title="Dados da conta" href="javacript:void(0);" dropdown="" data-activates="dropdown-conta" constrain-width="false">
+                        <i id="icon-perm" class="material-icons">perm_identity</i>
+                    </a>
+                    <ul id="dropdown-conta" class="dropdown-content">
+                        <li>
+                            <div id="tootip-conta" class="row">
+                                <div class="col s12">
+                                    <div class="col s12">
+                                        <a id="link-top" title="Alterar senha/PIN" href="//cordilheira.desenv.itamaraty.local/alterar-senha" target="_blank">
+                                            <i class="tiny material-icons blue-mre-icon">settings</i>
+                                            <span>Alterar senha/PIN</span>
+                                        </a>
+                                    </div>
+                                    <div class="col s12">
+                                        <a id="link-bottom" title="Sair do sistema" href="//cordilheira.desenv.itamaraty.local/sair">
+                                            <i class="tiny material-icons red-text">power_settings_new</i>
+                                            <span>Sair do Sistema</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<script>
+
+     $(".button-collapse").sideNav();
+   // $('.button-collapse').sideNav({
+   //     menuWidth: 200, // Default is 240
+   //     closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+   // }
+   //);
+   // $('.collapsible').collapsible();
+
+    //$(".button-collapse").click(function (e) {
+    //    e.preventDefault();
+    //    $("#slide-out").toggleClass('toggled');
+    //    $(".button-collapse").toggleClass('toggled');
+    //});
+
+
+</script>

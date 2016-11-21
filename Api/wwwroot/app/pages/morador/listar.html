@@ -1,0 +1,83 @@
+﻿<div class="ibox-content">
+
+
+    <div class="row top-title">
+        <div class="col s8">
+            <h3 class="title-content">Morador</h3>
+        </div>
+        <form id="pesquisa-rapida" class="input-field col s3 right-align margin-top-pesquisa ng-pristine ng-valid" ng-submit="pesquisaRapida()">
+            <i class="material-icons prefix">search</i>
+            <input id="icon_prefix" class="ng-pristine ng-valid ng-touched" ng-model="searchText" style="margin-bottom: 0px;" type="text">
+            <label for="icon_prefix">Pesquisar</label>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <label>Critério de busca: </label>
+            <input type="text" id="morador.Nome" ng-model="criterioBusca" ng-required />
+        </div>
+    </div>
+
+    <p class="right-align">
+
+        <a href="#/morador/cadastrar" class="btn">&nbsp;&nbsp;Incluir</a>
+
+    </p>
+
+
+
+    <br />
+    <div class="row" ng-show="moradores.length>0">
+        <div class="col s12">
+
+            <table class="striped bordered responsive-table ">
+                <thead>
+                    <th>Nome
+                    </th>
+                    <th>Identidade
+                    </th>
+                    <th>Data Nascimento
+                    </th>
+                    <th>Endereço
+                    </th>
+                    <th>Nome Dependente</th>
+                    <th class="acao90 center-align">Ação</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="morador in moradores | filter: criterioBusca | orderBy:'Nome' " style="cursor: pointer" ng-click="redirecionar(morador)">
+                        <td>
+                            <span ng-bind="morador.Nome"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="morador.Identidade"></span>- <span ng-bind="morador.Estado.SiglaEstado"></span>
+                        </td>
+
+                        <td class="left-align">{{morador.DataNascimento | date:"dd/MM/yyyy"}}
+                        </td>
+
+                        <td>
+                            <span ng-bind="morador.Endereco"></span>
+                        </td>
+
+                        <td class="align:center">
+                            <span ng-repeat="dependente in morador.Dependentes">
+
+                                <span ng-bind="dependente.Nome"></span>
+                                <br />
+
+                            </span>
+
+                        </td>
+
+                        <td class="center-align">
+                            <a href="#/morador/cadastrar/{{morador.Identificador}}" tooltipped data-position="top" data-tooltip="Editar"><i class="material-icons md-18 tiny">edit</i></a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

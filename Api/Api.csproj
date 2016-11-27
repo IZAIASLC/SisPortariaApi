@@ -352,6 +352,8 @@
     <Content Include="wwwroot\scripts\angular\angular-touch.min.js" />
     <Content Include="wwwroot\scripts\angular\angular.js" />
     <Content Include="wwwroot\scripts\angular\angular.min.js" />
+    <Content Include="wwwroot\app\pages\layout\dirPagination.html" />
+    <Content Include="wwwroot\scripts\dirPagination.js" />
     <Content Include="wwwroot\scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="wwwroot\scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="wwwroot\scripts\i18n\angular-locale_aa-et.js" />

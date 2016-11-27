@@ -1,32 +1,46 @@
 ﻿(function (app) {
     'use strict';
 
-    app.controller('PesquisarMoradorController',PesquisarMoradorController);
+    app.controller('PesquisarMoradorController', PesquisarMoradorController);
 
-    PesquisarMoradorController.$inject = ['$scope', 'dataService'];
+    PesquisarMoradorController.$inject = ['dataService'];
 
-    function PesquisarMoradorController($scope, dataService) {
+    function PesquisarMoradorController(dataService) {
 
-    $scope.NomePagina = "Morador";
+        var ctrl = this;
 
-    
-    var address = "/api/listar-moradores";
+        ctrl.NomePagina = "Morador";
+        ctrl.registrosPorPagina = 5;
+        ctrl.totalRegistros = 0;
+        ctrl.paginaCorrente = 1;
 
-    $scope.getAll = function () {
-        var callback = function (response) {
-            $scope.moradores = response;
+        
 
-            //angular.forEach($scope.moradores, function (item) {
+        ctrl.pesquisar = function (newPage) {
+           pesquisar(newPage)
+        };
 
-            //    item.DataNascimento = JsonDate(item.DataNascimento);
+        var address = "/api/listar-moradores";
 
-            //});
+         function pesquisar (page) {
 
-        }
-       dataService.get(address, {}, callback)
+            page = page - 1;
+
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: ctrl.registrosPorPagina,
+                    filter: ctrl.searchText
+                }
+            };
+
+            var callback = function (response) {
+                ctrl.moradores = response.Items;
+                ctrl.totalRegistros = response.TotalCount;
+            }
+            dataService.get(address, config, callback)
+        };
+
+         pesquisar(0);    
     };
-
-
-    $scope.getAll();
-};
 })(angular.module('app'));

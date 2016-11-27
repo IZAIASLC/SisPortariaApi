@@ -1,7 +1,7 @@
 ﻿//var moduleApp = angular.module('moduleApp', ['ngRoute', 'ngResource', 'ui.materialize', 'webcam', 'ngImgCrop', 'ngMask', 'simple-autocomplete']);
 (function () {
     'use strict';
-     angular.module('app', ['ngRoute', 'ngResource', 'ui.materialize']);
+    angular.module('app', ['ngRoute', 'ngResource', 'ui.materialize', 'angularUtils.directives.dirPagination']);
 })();
 
 

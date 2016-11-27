@@ -44,10 +44,14 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/listar-moradores")]
-        public Task<HttpResponseMessage> Get()
+        [Route("api/listar-moradores/{page:int=0}/{pageSize=5}/{filter?}")]
+        public Task<HttpResponseMessage> Get(HttpRequestMessage request, int?page, int? pageSize, string filter = null)
         {
-            var listaMorador = repositorioMorador.Consultar();
+
+
+            var listaMorador = repositorioMorador.Pesquisar(x=>x.Nome.Contains(filter));
+
+         
             var listaMoradorDto = new List<MoradorDto>();
             foreach (var morador in listaMorador)
             {
@@ -75,8 +79,36 @@ namespace Api.Controllers
                 listaMoradorDto.Add(moradorDto);
             }
 
-            return CreateResponse(HttpStatusCode.OK, listaMoradorDto);
+
+            var currPage = page.GetValueOrDefault(0);
+            var currPageSize = pageSize.GetValueOrDefault(10);
+
+            var totalCount = listaMoradorDto.Count();
+
+            var paged = listaMoradorDto.Skip(currPage * currPageSize)
+                               .Take(currPageSize)
+                               .ToArray();
+
+
+
+
+
+            var PagedCollection = new PagedCollection<MoradorDto>()
+            {
+
+                Page = currPage,
+                TotalCount = totalCount,
+                TotalPages = (int)Math.Ceiling((decimal)totalCount / currPageSize),
+                Items = paged
+
+            };
+
+
+            return CreateResponse(HttpStatusCode.OK, PagedCollection);
+
+  
         }
+
 
         [HttpGet]
         [Route("api/listar-morador/{id}")]

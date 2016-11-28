@@ -14,13 +14,11 @@
         ctrl.totalRegistros = 0;
         ctrl.paginaCorrente = 1;
 
-        
-
         ctrl.pesquisar = function (newPage) {
            pesquisar(newPage)
         };
 
-        var address = "/api/listar-moradores";
+        var address = "/api/morador/listar-moradores";
 
          function pesquisar (page) {
 

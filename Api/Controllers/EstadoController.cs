@@ -1,31 +1,33 @@
 ﻿using Apresentacao.Utils;
 using Estrutura.AcessoDados;
+using Estrutura.Web;
+using Modelo.Dto;
 using SisPortaria.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Apresentacao.Utils;
-using System.Collections;
-using Modelo.Dto;
-namespace Apresentacao.Controllers
-{
 
-    public class EstadoController : Controller
+namespace Api.Controllers
+{
+    [RoutePrefix("api/estado")]
+    public class EstadoController : BaseController
     {
         private IRepositorio<Estado> repositorioEstado;
-
         public EstadoController(IRepositorio<Estado> repositorioEstado)
         {
-
             this.repositorioEstado = repositorioEstado;
-
         }
-        
+
+
 
         [HttpGet]
-        public ActionResult ListarEstados()
+        [Route("listar-estados")]
+        public Task<HttpResponseMessage> Get()
         {
             var listaEstados = repositorioEstado.Consultar().OrderBy(x=>x.SiglaEstado);
 
@@ -38,8 +40,8 @@ namespace Apresentacao.Controllers
 
                 retornoEstados.Add(estadoDto);
             }
- 
-            return Json(retornoEstados, JsonRequestBehavior.AllowGet);
+
+            return CreateResponse(HttpStatusCode.OK, retornoEstados);
         }
 
         

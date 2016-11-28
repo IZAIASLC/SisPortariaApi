@@ -5,24 +5,53 @@
 
 
 
-    <form name="visitanteForm" data-ng-submit="salvar()" novalidate>
+    <form name="visitanteForm" data-ng-submit="ctrl.salvar()" novalidate>
 
         <div class="row">
             <div class="input-field col s12">
                 <label for="image"></label>
-                <img src="data:image/jpeg;base64,{{morador.Foto}}" />
+                <img src="data:image/jpeg;base64,{{ctrl.morador.Foto}}" />
             </div>
         </div>
         <div class="row">
 
             <div class="input-field col s12 s8 l8">
-                <input type="text" ng-model="morador.Nome" length="10" />
+                <input type="text" ng-model="ctrl.morador.Nome" length="10" />
                 <label>Nome</label>
             </div>
 
             <div class="input-field col s12 s4 l4">
-                <label>Data Nascimento</label>
-                <input type="text" input-date select-years="50" format="dd/mm/yyyy" class="datepicker" on-set="onSet('#data_nascimento')" id="data_nascimento" ng-model="morador.DataNascimento" />
+                <label  for="inputCreated">Data Nascimento</label>
+                <input input-date
+                       type="text"
+                       name="created"
+                       id="inputCreated"
+                       ng-model="ctrl.morador.DataNascimento"
+                       container=""
+                       format="dd/mm/yyyy"
+                       months-full="{{ month }}"
+                       months-short="{{ monthShort }}"
+                       weekdays-full="{{ weekdaysFull }}"
+                       weekdays-short="{{ weekdaysShort }}"
+                       weekdays-letter="{{ weekdaysLetter }}"
+                       disable="disable"
+                       min="{{ minDate }}"
+                       max="{{ maxDate }}"
+                       today="today"
+                       first-day="1"
+                       clear="clear"
+                       close="close"
+                       select-years="15"
+                       on-start="onStart()"
+                       on-render="onRender()"
+                       on-open="onOpen()"
+                       on-close="onClose()"
+                       on-set="onSet()"
+                       on-stop="onStop()" />
+
+
+               <!--<input type="text" input-date select-years="50" format="dd/mm/yyyy" class="datepicker" on-set="onSet('#data_nascimento')"
+                       id="data_nascimento" ng-model="ctrl.morador.DataNascimento" />-->
 
             </div>
 
@@ -31,7 +60,7 @@
         <div class="row">
 
             <div class="input-field col s12">
-                <input type="text" ng-model="morador.Endereco" length="10" />
+                <input type="text" ng-model="ctrl.morador.Endereco" length="10" />
                 <label>Endereço</label>
             </div>
 
@@ -39,15 +68,15 @@
         <div class="row">
             <div class="input-field col s12 m3 l3">
                 <label class="control-label">Identidade</label>
-                <input type="text" ng-model="morador.Identidade" />
+                <input type="text" ng-model="ctrl.morador.Identidade" />
             </div>
 
             <div class="input-field col s12 m3 l3 ">
 
                 <select name="uf_identidade" id="uf_identidade" material-select watch
-                        ng-model="morador.Estado.Identificador">
-                    <option ng-selected="morador.Estado.Identificador == estado.Identificador"
-                            ng-repeat="estado in listaEstados" value="{{estado.Identificador}}">
+                        ng-model="ctrl.morador.Estado.Identificador">
+                    <option ng-selected="ctrl.morador.Estado.Identificador == estado.Identificador"
+                            ng-repeat="estado in ctrl.listaEstados" value="{{estado.Identificador}}">
                         {{estado.Sigla}}
                     </option>
                 </select>
@@ -59,11 +88,11 @@
                     <label style="color: #4E4D4C;" for="noEmail">Sexo</label>
                 </div>
                 <div class="col s4">
-                    <input class="with-gap" type="radio" id="masculino" ng-model="morador.Sexo" value="0" />
+                    <input class="with-gap" type="radio" id="masculino" ng-model="ctrl.morador.Sexo" value="0" />
                     <label for="masculino">M</label>
                 </div>
                 <div class="col s4">
-                    <input class="with-gap" type="radio" id="feminino" ng-model="morador.Sexo" value="1" />
+                    <input class="with-gap" type="radio" id="feminino" ng-model="ctrl.morador.Sexo" value="1" />
                     <label for="feminino">F</label>
                 </div>
             </div>
@@ -73,7 +102,7 @@
         <br />
 
 
-        <div class="row" ng-show="morador.Dependentes.length>0">
+        <div class="row" ng-show="ctrl.morador.Dependentes.length>0">
 
             <div class="ibox-title">
                 Informações do(s) Dependente(s)
@@ -89,7 +118,7 @@
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="dependente in morador.Dependentes">
+                        <tr ng-repeat="dependente in ctrl.morador.Dependentes">
                             <td>{{dependente.Nome}}</td>
                             <td class="center-align">
 
@@ -119,13 +148,13 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <label class="control-label">Nome do dependente</label>
-                        <input type="text" ng-model="dependente.Nome" />
+                        <input type="text" ng-model="ctrl.dependente.Nome" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col s12 m12 l12 right-align">
-                        <input type="button" id="Adicionar" ng-click="adicionar(dependente)" name="Dependentes" value="Adicionar"
+                        <input type="button" id="Adicionar" ng-click="ctrl.adicionar(dependente)" name="Dependentes" value="Adicionar"
                                class="btn btn-primary" />
                         <a class="btn modal-action modal-close">Fechar</a>
                     </div>
@@ -136,7 +165,7 @@
 
         <div class="row">
             <div class="col s12 m12 l12 right-align">
-                <button type="button" class="btn btn-primary" ng-click="salvar()" title="Salvar">Salvar</button>
+                <button type="button" class="btn btn-primary" ng-click="ctrl.salvar()" title="Salvar">Salvar</button>
              
                 <a class="btn btn-warning" href="#/morador/">Voltar</a>
             </div>

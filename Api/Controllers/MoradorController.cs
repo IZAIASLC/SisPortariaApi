@@ -13,6 +13,7 @@ using System;
 
 namespace Api.Controllers
 {
+    [RoutePrefix("api/morador")]
     public class MoradorController : BaseController
     {
         private IRepositorio<Morador> repositorioMorador;
@@ -27,8 +28,7 @@ namespace Api.Controllers
 
 
         [HttpPost]
-        //[Authorize]
-        [Route("api/morador")]
+        [Route("cadastrar")]
         public Task<HttpResponseMessage> Post(Morador morador)
         {
             bool retorno = MoradorScopes.CreateMoradorScopeIsValid(morador);
@@ -44,14 +44,17 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/listar-moradores/{page:int=0}/{pageSize=5}/{filter?}")]
+        [Route("listar-moradores/{page:int=0}/{pageSize=5}/{filter?}")]
         public Task<HttpResponseMessage> Get(HttpRequestMessage request, int?page, int? pageSize, string filter = null)
         {
+            var listaMorador = new List<Morador>().AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(filter))
+                listaMorador = repositorioMorador.Pesquisar(x => x.Nome.Contains(filter));
+            else
+                listaMorador = repositorioMorador.Consultar();
 
 
-            var listaMorador = repositorioMorador.Pesquisar(x=>x.Nome.Contains(filter));
-
-         
             var listaMoradorDto = new List<MoradorDto>();
             foreach (var morador in listaMorador)
             {
@@ -90,28 +93,20 @@ namespace Api.Controllers
                                .ToArray();
 
 
-
-
-
             var PagedCollection = new PagedCollection<MoradorDto>()
             {
-
                 Page = currPage,
                 TotalCount = totalCount,
                 TotalPages = (int)Math.Ceiling((decimal)totalCount / currPageSize),
                 Items = paged
-
             };
 
-
             return CreateResponse(HttpStatusCode.OK, PagedCollection);
-
-  
         }
 
 
         [HttpGet]
-        [Route("api/listar-morador/{id}")]
+        [Route("listar-morador/{id}")]
         public Task<HttpResponseMessage> Get(int id)
         {
             var morador = repositorioMorador.Consultar(id);
@@ -150,7 +145,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/listar-moradores/{nome}/{endereco}/{page}/{pageSize}")]
+        [Route("listar-moradores/{nome}/{endereco}/{page}/{pageSize}")]
         public Task<HttpResponseMessage> Get(string nome, string endereco, int? page, int? pageSize)
         {
             var listaMorador = repositorioMorador.Listar().ToList();
@@ -207,7 +202,7 @@ namespace Api.Controllers
        
 
         [HttpPut]
-        [Route("api/morador")]
+        [Route("alterar")]
         public Task<HttpResponseMessage> Put(Morador morador)
         {
             var moradorAtual = repositorioMorador.Consultar(morador.Identificador);

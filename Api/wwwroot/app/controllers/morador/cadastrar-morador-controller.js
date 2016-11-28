@@ -1,87 +1,89 @@
 ﻿(function (app) {
-    'use strict';
+   
 
     app.controller('CadastrarMoradorController',CadastrarMoradorController);
 
-    CadastrarMoradorController.$inject=['$scope', 'dataService', '$routeParams', '$filter'];
+    CadastrarMoradorController.$inject=['dataService', '$routeParams', '$filter'];
  
-    function CadastrarMoradorController($scope, dataService, $routeParams, $filter) {
+    function CadastrarMoradorController(dataService, $routeParams, $filter) {
 
-        $scope.NomePagina = "Morador";
-        $scope.morador = {}
-        $scope.dependente = {};
-        $scope.morador.Dependentes = [];
+        var ctrl = this;
 
-        $scope.dependente.Nome = "";
+        ctrl.NomePagina = "Morador";
+        ctrl.morador = {}
+        ctrl.dependente = {};
+        ctrl.morador.Dependentes = [];
 
-        var address = "Morador/SalvarMorador/";
-        $scope.edicao = false;
+        ctrl.dependente.Nome = "";
 
+        ctrl.edicao = false;
 
-        $scope.inicial = function () {
-
+        ctrl.inicial = function () {
 
             //Edição
             if ($routeParams.identificador != undefined) {
 
-                $scope.edicao = true;
+                ctrl.edicao = true;
 
 
 
                 var callback = function (response) {
-                    $scope.morador = response;
+                    ctrl.morador = response;
 
-                    $scope.morador.DataNascimento = JsonDate($scope.morador.DataNascimento);
+                  //  ctrl.morador.DataNascimento = JsonDate(ctrl.morador.DataNascimento);
 
-                    if ($scope.morador.Foto != null)
-                        $scope.morador.Foto = _arrayToBase64($scope.morador.Foto);
+
+                   
+                    ctrl.morador.DataNascimento = ctrl.morador.DataNascimento.toLocaleDateString("pt-BR");
+
+                    if (ctrl.morador.Foto != null)
+                        ctrl.morador.Foto = _arrayToBase64(ctrl.morador.Foto);
 
                 }
-                dataService.get("/api/listar-morador/" + $routeParams.identificador, {}, callback)
+                dataService.get("/api/morador/listar-morador/" + $routeParams.identificador, {}, callback)
 
             }
 
         };
 
-
-        $scope.inicial();
+        listaEstados();
+        ctrl.inicial();
 
 
         //Obtem os estados
-        var listaEstados = function () {
+        function listaEstados() {
             var callback = function (response) {
-                $scope.listaEstados = response;
+                ctrl.listaEstados = response;
 
             }
-           dataService.get("Estado/ListarEstados/", {}, callback)
+            dataService.get("/api/estado/listar-estados/", {}, callback)
         }
 
-      //  listaEstados();
+       
 
 
         //Pesquisa pelo identificador
-        $scope.pesquisar = function (identificador) {
+        ctrl.pesquisar = function (identificador) {
 
             var callback = function (response) {
-                $scope.morador = response;
+                ctrl.morador = response;
 
             }
             dataService.get("api/listar-morador/" + identificador, {}, callback)
         };
 
         //Adicionar um novo dependente
-        $scope.adicionar = function (dependente) {
+        ctrl.adicionar = function (dependente) {
 
 
-
-            if ($scope.dependente.Nome == undefined || $scope.dependente.Nome == '') {
+            if (ctrl.dependente.Nome == undefined || ctrl.dependente.Nome == '') {
                 Modal.growl("Favor informar o nome do dependente", "alert");
 
                 return;
             }
 
             var adicionado = false;
-            angular.forEach($scope.morador.Dependentes, function (item) {
+            angular.forEach(ctrl.morador.Dependentes, function (item) {
 
                 if (item.Nome.toUpperCase() == dependente.Nome.toUpperCase() && item.Identificador != dependente.Identificador) {
                     adicionado = true;
@@ -99,7 +101,7 @@
 
             if (dependente.Identificador > 0) {
 
-                angular.forEach($scope.morador.Dependentes, function (item) {
+                angular.forEach(ctrl.morador.Dependentes, function (item) {
 
 
                     if (item.Identificador === dependente.Identificador) {
@@ -109,15 +111,15 @@
 
                 });
 
-                delete $scope.dependente;
+                delete ctrl.dependente;
             }
             else {
 
 
                 dependente.Identificador = 0;
                 dependente.Nome = dependente.Nome.toUpperCase();
-                $scope.morador.Dependentes.push(angular.copy(dependente))
-                delete $scope.dependente;
+                ctrl.morador.Dependentes.push(angular.copy(dependente))
+                delete ctrl.dependente;
             }
 
 
@@ -128,35 +130,35 @@
 
 
         //Salva o cliente
-        $scope.salvar = function () {
+        ctrl.salvar = function () {
 
-            if ($scope.morador.Nome === undefined || $scope.morador.Nome === '') {
+            if (ctrl.morador.Nome === undefined || ctrl.morador.Nome === '') {
                 sweetAlert("", "Favor informar o nome do morador", "warning");
 
                 return;
             }
-
-            if ($scope.morador.DataNascimento === undefined || $scope.morador.DataNascimento === '') {
+         
+            if (ctrl.morador.DataNascimento === undefined || ctrl.morador.DataNascimento === '') {
                 sweetAlert("", "Favor informar a data de nascimento do morador", "warning");
 
                 return;
             }
 
 
-            if ($scope.morador.Identidade === undefined || $scope.morador.Identidade === '') {
+            if (ctrl.morador.Identidade === undefined || ctrl.morador.Identidade === '') {
                 sweetAlert("", "Favor informar a identidade do morador", "warning");
 
                 return;
             }
 
-            if ($scope.morador.Endereco === undefined || $scope.morador.Endereco === '') {
+            if (ctrl.morador.Endereco === undefined || ctrl.morador.Endereco === '') {
                 sweetAlert("", "Favor informar o endereco do morador", "warning");
 
                 return;
             }
 
 
-            if ($scope.morador.Sexo === undefined || $scope.morador.Sexo === '') {
+            if (ctrl.morador.Sexo === undefined || ctrl.morador.Sexo === '') {
                 sweetAlert("", "Favor informar o sexo do morador", "warning");
 
                 return;
@@ -165,8 +167,8 @@
 
 
 
-            var obj = $scope.morador;
-            obj.Dependentes = $scope.morador.Dependentes;
+            var obj = ctrl.morador;
+            obj.Dependentes = ctrl.morador.Dependentes;
 
             if ($routeParams.identificador != undefined) {
                 var callback = function (response) {
@@ -175,7 +177,7 @@
                 }
 
 
-                dataService.put("Morador/AtualizarMorador", obj, callback)
+                dataService.put("/api/morador/alterar", obj, callback)
 
             } else {
 
@@ -185,14 +187,14 @@
                     window.location = "#/morador";
                 }
 
-                dataService.post(address, obj, callback)
+                dataService.post("/api/morador/cadastrar", obj, callback)
             }
         };
 
         //Pesquisa se o cpf já está cadastrado.
-        $scope.pesquisarCpf = function () {
+        ctrl.pesquisarCpf = function () {
 
-            if (!validar_cpf($scope.morador.Cpf)) {
+            if (!validar_cpf(ctrl.morador.Cpf)) {
                 Modal.growl("CPF inválido", "alert");
             }
             else {
@@ -202,38 +204,38 @@
 
                     if (response == 'True') {
                         Modal.growl("CPF já está cadastrado.", "alert");
-                        $scope.morador.Cpf = '';
+                        ctrl.morador.Cpf = '';
 
                     }
                 }
 
                 if ($routeParams.identificador != undefined) {
                     //Editando
-                    dataService.get("Morador/VerificarCpfCadastrado" + "?parametro=" + $scope.morador.Cpf + "&identificador=" + $routeParams.identificador, {}, callback);
+                    dataService.get("Morador/VerificarCpfCadastrado" + "?parametro=" + ctrl.morador.Cpf + "&identificador=" + $routeParams.identificador, {}, callback);
                 }
                 else {
                     //Cadastrando
-                    dataService.get("Morador/VerificarCpfCadastrado" + "?parametro=" + $scope.morador.Cpf + "&identificador=0", {}, callback);
+                    dataService.get("Morador/VerificarCpfCadastrado" + "?parametro=" + ctrl.morador.Cpf + "&identificador=0", {}, callback);
                 }
             }
         };
 
-        $scope.editar = function (dependente) {
+        ctrl.editar = function (dependente) {
 
             $('#modalDependentes').openModal();
 
-            $scope.dependente = {};
-            $scope.dependente.Identificador = dependente.Identificador;
-            $scope.dependente.Nome = dependente.Nome;
+            ctrl.dependente = {};
+            ctrl.dependente.Identificador = dependente.Identificador;
+            ctrl.dependente.Nome = dependente.Nome;
         };
 
         //Valida remoção da lista
-        $scope.remover = function (dependente) {
+        ctrl.remover = function (dependente) {
 
 
             dependente.selecionado = true;
 
-            $scope.morador.Dependentes = $scope.morador.Dependentes.filter(function (dependente) {
+            ctrl.morador.Dependentes = ctrl.morador.Dependentes.filter(function (dependente) {
 
                 if (!dependente.selecionado)
                     return dependente;
@@ -242,24 +244,6 @@
             dependente.selecionado = false;
 
         };
-
-
-
-
-
-        // Recupera a lista de marca de veículo
-        $scope.$watch('veiculo.Marca', function (identificador) {
-
-            if (identificador > 0) {
-
-                var callback = function (response) {
-                    $scope.listaModelo = response;
-                }
-                dataService.get("api/Modelo/?identificador=" + identificador, {}, callback);
-            }
-        });
-
-
 
     };
 
